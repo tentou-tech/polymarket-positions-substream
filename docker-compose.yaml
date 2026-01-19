@@ -12,10 +12,12 @@ services:
       POSTGRES_INITDB_ARGS: "-E UTF8 --locale=C"
       POSTGRES_HOST_AUTH_METHOD: md5
     healthcheck:
-      test: ["CMD", "pg_isready"]
+      test: ["CMD-SHELL", "pg_isready -U app -d main"]
       interval: 30s
       timeout: 10s
       retries: 15
+    networks:
+      - app-network
   pgweb:
     container_name: pgweb-substreams
     image: sosedoff/pgweb:0.16.1
@@ -29,3 +31,28 @@ services:
       - PGWEB_DATABASE_URL=postgres://dev:insecure@postgres:5432/main?sslmode=disable
     depends_on:
       - postgres
+    networks:
+      - app-network
+  sink:
+    image: ghcr.io/streamingfast/substreams-sink-sql:v4.11.3
+    container_name: sink-substreams
+    restart: on-failure
+    environment:
+      - SUBSTREAMS_API_TOKEN=${SUBSTREAMS_API_TOKEN}
+      - PG_DSN=psql://dev:insecure@postgres:5432/main?sslmode=disable
+      - SPKG=polymarket-positions-substream-v0.1.0.spkg
+    volumes:
+      - ./polymarket-positions-substream-v0.1.0.spkg:/project/polymarket-positions-substream-v0.1.0.spkg
+      - ./schema.sql:/project/schema.sql
+      - ./substreams.yaml:/project/substreams.yaml
+      - ./start.sh:/project/start.sh
+    working_dir: /project
+    entrypoint: ["sh", "/project/start.sh"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge

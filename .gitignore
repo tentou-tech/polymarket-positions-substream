@@ -1,5 +1,6 @@
 # substreams auth file
 .substreams.env
+.env
 
 # Compiled source files
 target/
