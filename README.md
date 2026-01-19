@@ -10,6 +10,22 @@ substreams auth
 substreams gui       			  # Get streaming!
 ```
 
+## Database Sink
+
+This substream is configured to sink data into PostgreSQL using `substreams-sink-sql`.
+
+### 1. Setup the Database
+Initialize the schema and internal system tables:
+```bash
+substreams-sink-sql setup "psql://dev:insecure@localhost:5432/main?sslmode=disable" substreams.yaml
+```
+
+### 2. Run the Sink
+Start streaming data into the database:
+```bash
+substreams-sink-sql run "psql://dev:insecure@localhost:5432/main?sslmode=disable" substreams.yaml
+```
+
 Optionally, you can publish your Substreams to the [Substreams Registry](https://substreams.dev).
 
 ```bash
