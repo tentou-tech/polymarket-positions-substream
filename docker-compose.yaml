@@ -44,8 +44,6 @@ services:
       - ENDPOINT=polygon.streamingfast.io:443
     volumes:
       - ./polymarket-positions-substream-v0.1.0.spkg:/project/polymarket-positions-substream-v0.1.0.spkg
-      - ./schema.sql:/project/schema.sql
-      - ./substreams.yaml:/project/substreams.yaml
       - ./start.sh:/project/start.sh
     working_dir: /project
     entrypoint: ["sh", "/project/start.sh"]
