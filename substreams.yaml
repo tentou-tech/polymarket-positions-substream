@@ -1,0 +1,38 @@
+specVersion: v0.1.0
+package:
+  name: polymarket_positions_substream
+  version: v0.1.0
+  url: https://github.com/username/polymarket_positions_substream-polygon
+  description: Substreams module for polymarket_positions_substream on Polygon Mainnet
+
+imports:
+    ethcommon: https://spkg.io/streamingfast/ethereum-common-v0.3.3.spkg
+
+protobuf:
+  files:
+    - contract.proto
+  importPaths:
+    - ./proto
+  excludePaths:
+    - sf/substreams
+    - google
+
+binaries:
+  default:
+    type: wasm/rust-v1
+    file: ./target/wasm32-unknown-unknown/release/substreams.wasm
+
+modules:
+
+  - name: map_events
+    kind: map
+    initialBlock: 77700000
+    blockFilter:
+      module: ethcommon:index_events
+      query:
+        string: evt_addr:0x4d97dcd97ec945f40cf65f87097ace5ea0476045
+    inputs:
+      - source: sf.ethereum.type.v2.Block
+    output:
+      type: proto:contract.v1.Events
+network: polygon

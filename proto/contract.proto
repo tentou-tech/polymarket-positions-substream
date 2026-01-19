@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package contract.v1;
+message Events {
+    repeated ConditionalTokens_ApprovalForAll conditional_tokens_approval_for_alls = 1;
+    repeated ConditionalTokens_ConditionPreparation conditional_tokens_condition_preparations = 2;
+    repeated ConditionalTokens_ConditionResolution conditional_tokens_condition_resolutions = 3;
+    repeated ConditionalTokens_PayoutRedemption conditional_tokens_payout_redemptions = 4;
+    repeated ConditionalTokens_PositionSplit conditional_tokens_position_splits = 5;
+    repeated ConditionalTokens_PositionsMerge conditional_tokens_positions_merges = 6;
+    repeated ConditionalTokens_TransferBatch conditional_tokens_transfer_batches = 7;
+    repeated ConditionalTokens_TransferSingle conditional_tokens_transfer_singles = 8;
+    repeated ConditionalTokens_Uri conditional_tokens_uris = 9;
+}
+message ConditionalTokens_ApprovalForAll {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    bytes owner = 5;
+    bytes operator = 6;
+    bool approved = 7;
+}
+message ConditionalTokens_ConditionPreparation {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    bytes condition_id = 5;
+    bytes oracle = 6;
+    bytes question_id = 7;
+    string outcome_slot_count = 8;
+}
+message ConditionalTokens_ConditionResolution {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    bytes condition_id = 5;
+    bytes oracle = 6;
+    bytes question_id = 7;
+    string outcome_slot_count = 8;
+    repeated string payout_numerators = 9;
+}
+message ConditionalTokens_PayoutRedemption {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    bytes redeemer = 5;
+    bytes collateral_token = 6;
+    bytes parent_collection_id = 7;
+    bytes condition_id = 8;
+    repeated string index_sets = 9;
+    string payout = 10;
+}
+message ConditionalTokens_PositionSplit {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    bytes stakeholder = 5;
+    bytes collateral_token = 6;
+    bytes parent_collection_id = 7;
+    bytes condition_id = 8;
+    repeated string partition = 9;
+    string amount = 10;
+}
+message ConditionalTokens_PositionsMerge {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    bytes stakeholder = 5;
+    bytes collateral_token = 6;
+    bytes parent_collection_id = 7;
+    bytes condition_id = 8;
+    repeated string partition = 9;
+    string amount = 10;
+}
+message ConditionalTokens_TransferBatch {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    bytes operator = 5;
+    bytes from = 6;
+    bytes to = 7;
+    repeated string ids = 8;
+    repeated string values = 9;
+}
+message ConditionalTokens_TransferSingle {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    bytes operator = 5;
+    bytes from = 6;
+    bytes to = 7;
+    string id = 8;
+    string value = 9;
+}
+message ConditionalTokens_Uri {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    string value = 5;
+    string id = 6;
+}
+  
