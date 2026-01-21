@@ -42,8 +42,9 @@ services:
       - PG_DSN=psql://dev:insecure@postgres:5432/main?sslmode=disable
       - SPKG=polymarket-positions-substream-v0.1.0.spkg
       - ENDPOINT=polygon.streamingfast.io:443
-      - BATCH_BLOCK_FLUSH_INTERVAL=10
+      - BATCH_BLOCK_FLUSH_INTERVAL=100
       - BATCH_ROW_FLUSH_INTERVAL=1000
+      - LIVE_BLOCK_FLUSH_INTERVAL=100
     volumes:
       - ./polymarket-positions-substream-v0.1.0.spkg:/project/polymarket-positions-substream-v0.1.0.spkg
       - ./start.sh:/project/start.sh

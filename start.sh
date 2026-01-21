@@ -20,6 +20,10 @@ if [ -f "$SPKG" ]; then
         CMD="$CMD --batch-row-flush-interval $BATCH_ROW_FLUSH_INTERVAL"
     fi
 
+    if [ -n "$LIVE_BLOCK_FLUSH_INTERVAL" ]; then
+        CMD="$CMD --live-block-flush-interval $LIVE_BLOCK_FLUSH_INTERVAL"
+    fi
+
     eval $CMD
 else
     echo "Package $SPKG not found!"
